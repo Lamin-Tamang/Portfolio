@@ -1,1 +1,1 @@
-![Image](https://github.com/Lamin-Tamang/Portfolio/blob/1863884e6b71b1257daf8346184fce7de40e6191/Portfolio%20(2).png)
+![Image](https://github.com/Lamin-Tamang/Portfolio/blob/bb36e3b2125a7700496b77f3d8bd0dcf4e16c09a/mypicc.png)
