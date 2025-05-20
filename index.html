@@ -556,7 +556,7 @@
         }
     </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
     <!-- Figma Overlay -->
     <div class="figma-overlay" id="figma-overlay">
         <img id="figma-image" src="mypicc.png" alt="Figma Portfolio">
@@ -680,13 +680,12 @@
             figmaOverlay.classList.add('hidden');
         });
 
-        // Theme Toggle
+        // Theme Toggle: Switch from light to dark after 15 seconds
         const body = document.body;
         function toggleTheme() {
-            body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+            body.setAttribute('data-theme', 'dark'); // Switch to dark theme
         }
-        body.setAttribute('data-theme', 'dark');
-        setInterval(toggleTheme, 9000);
+        setTimeout(toggleTheme, 15000); // 15 seconds delay
 
         // Particle Background
         const particleContainer = document.getElementById('particle-container');
