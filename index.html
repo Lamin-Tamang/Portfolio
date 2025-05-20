@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lamin Tamang</title>
+    <title>Portfolio - Lamin Tamang</title>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Preload the Figma overlay image -->
@@ -74,19 +74,20 @@
             cursor: pointer;
             overflow-y: auto;
             background: transparent;
+            opacity: 0; /* Initially hidden */
         }
         .figma-overlay.loaded {
             opacity: 1; /* Show when image is loaded */
+        }
+        .figma-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
         .figma-overlay img {
             width: 100vw;
             height: auto;
             object-fit: contain;
             display: block;
-        }
-        .figma-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
         }
         .click-text {
             position: fixed;
@@ -118,15 +119,6 @@
         @keyframes spin {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        .error-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            color: #ff4444;
-            z-index: 1999;
         }
 
         /* Particle Background */
@@ -564,13 +556,12 @@
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
     <!-- Figma Overlay -->
     <div class="figma-overlay" id="figma-overlay">
         <img id="figma-image" src="mypicc.png" alt="Figma Portfolio">
         <div class="click-text">Click here to visit my website</div>
         <div class="loading-indicator" id="loading-indicator">🌸</div>
-        <div class="error-message" id="error-message" style="display: none;">Image not found! 😿 Try again or check the file.</div>
     </div>
 
     <!-- Particle Container -->
@@ -598,7 +589,7 @@
 
     <!-- Skills Section -->
     <section id="skills" class="section">
-        <h2>My Skillset 🌸</h2>
+        <h2>My Cute Skillset 🌸</h2>
         <div class="skills-grid">
             <a href="https://www.credly.com/badges/03a05796-aea6-402d-8ad1-86e001806cb6/public_url" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
                 <div class="skill-card">
@@ -675,7 +666,6 @@
         const figmaOverlay = document.getElementById('figma-overlay');
         const figmaImage = document.getElementById('figma-image');
         const loadingIndicator = document.getElementById('loading-indicator');
-        const errorMessage = document.getElementById('error-message');
         const body = document.body;
 
         // Show overlay only after image loads
@@ -684,17 +674,19 @@
             loadingIndicator.style.display = 'none';
         };
         figmaImage.onerror = () => {
-            loadingIndicator.style.display = 'none';
-            errorMessage.style.display = 'block';
+            loadingIndicator.textContent = 'Oops! Image failed to load 😿';
         };
 
-        // Set light theme after Figma overlay is dismissed, then switch to dark after 15 seconds
+        // Set initial theme to dark (hidden until overlay click)
+        body.setAttribute('data-theme', 'dark');
+
+        // Theme switch on overlay click
         figmaOverlay.addEventListener('click', () => {
-            figmaOverlay.classList.add('hidden');
-            body.setAttribute('data-theme', 'light'); // Start with light theme after dismissal
+            body.setAttribute('data-theme', 'light'); // Set to light theme
             setTimeout(() => {
-                body.setAttribute('data-theme', 'dark'); // Switch to dark theme after 15 seconds
-            }, 15000);
+                body.setAttribute('data-theme', 'dark'); // Switch to dark theme after 13 seconds
+            }, 13000); // 13 seconds in milliseconds
+            figmaOverlay.classList.add('hidden'); // Hide overlay after click
         });
 
         // Particle Background
