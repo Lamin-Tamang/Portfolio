@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lamin Tamang</title>
+    <title>MY Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Preload the Figma overlay image -->
-    <link rel="preload" href="mypicc.png" as="image">
     <style>
         :root {
             /* Dark Theme */
@@ -58,66 +56,6 @@
             color: var(--text-primary);
             line-height: 1.6;
             position: relative;
-        }
-
-        /* Overlay for Figma Image */
-        .figma-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            z-index: 2000;
-            cursor: pointer;
-            overflow-y: auto;
-            background: transparent;
-        }
-        .figma-overlay.loaded {
-            opacity: 1; /* Show when image is loaded */
-        }
-        .figma-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .figma-overlay img {
-            width: 100vw;
-            height: auto;
-            object-fit: contain;
-            display: block;
-        }
-        .click-text {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            font-weight: 400;
-            color: var(--accent-primary);
-            text-shadow: 0 0 10px var(--accent-primary), 2px 2px 5px var(--shadow-primary);
-            animation: pulseText 2s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 2001;
-        }
-        @keyframes pulseText {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-        }
-        .loading-indicator {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 30px;
-            color: var(--accent-primary);
-            animation: spin 1.5s linear infinite;
-            z-index: 1999;
-        }
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* Particle Background */
@@ -382,25 +320,37 @@
             color: var(--accent-hover);
             text-shadow: 0 0 15px var(--accent-hover);
         }
-        .cv-highlight {
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        #figmaButton {
+            color: white;
+        }
+        .cv-highlight, .figma-button {
             display: inline-block;
             background: var(--accent-primary);
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 25px;
             border: 2px solid var(--border-primary);
             box-shadow: 0 0 10px var(--shadow-accent);
+            text-decoration: none;
+            font-size: 18px;
         }
-        .cv-highlight:hover {
+        .cv-highlight:hover, .figma-button:hover {
             background: var(--accent-hover);
             transform: scale(1.05);
             box-shadow: 0 0 15px var(--shadow-accent);
         }
-        .cv-highlight a {
+        .cv-highlight a, .figma-button a {
             color: #fff;
             text-shadow: none;
         }
-        .cv-highlight a:hover {
+        .cv-highlight a:hover, .figma-button a:hover {
             color: #fff;
             text-shadow: none;
         }
@@ -462,11 +412,6 @@
             }
             .hero h1 { font-size: 72px; }
             .hero p { font-size: 24px; }
-            .click-text { font-size: 32px; }
-            .figma-overlay img {
-                width: 100vw;
-                height: auto;
-            }
         }
 
         @media (max-width: 767px) {
@@ -533,8 +478,9 @@
             .contact a {
                 font-size: 18px;
             }
-            .cv-highlight {
-                padding: 8px 16px;
+            .cv-highlight, .figma-button {
+                font-size: 16px;
+                padding: 10px 20px;
             }
             footer {
                 padding: 20px;
@@ -545,24 +491,10 @@
             .social-links a {
                 font-size: 20px;
             }
-            .figma-overlay img {
-                width: 100vw;
-                height: auto;
-            }
-            .click-text {
-                font-size: 20px;
-            }
         }
     </style>
 </head>
-<body data-theme="dark">
-    <!-- Figma Overlay -->
-    <div class="figma-overlay" id="figma-overlay">
-        <img id="figma-image" src="mypicc.png" alt="Figma Portfolio">
-        <div class="click-text">Click here to visit my website</div>
-        <div class="loading-indicator" id="loading-indicator">🌸</div>
-    </div>
-
+<body data-theme="light">
     <!-- Particle Container -->
     <div class="particle-container" id="particle-container"></div>
 
@@ -579,7 +511,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <img src="https://via.placeholder.com/150" alt="Profile" class="profile-img">
+        <img src="img.jpeg" alt="Profile" class="profile-img">
         <h1>Hey there! I'm Lamin Tamang ✩</h1>
         <p><em>@Judges_a_model_by_its_accuracy_curve...</em></p>
         <h1>I'm a Software Engineer!</h1>
@@ -646,7 +578,10 @@
         <h2>Let's Chat! 💌</h2>
         <p>Currently looking to join a cross-functional team that values improving people's lives through accessible design, or have a project in mind? Let's connect! 🌼</p>
         <p>Email: <a href="mailto:lamintamang945@gmail.com">lamintamang945@gmail.com</a></p>
-        <p><span class="cv-highlight"><a href="latest_cv.pdf" target="_blank">Check out my CV</a></span></p>
+        <div class="button-group">
+            <span class="cv-highlight"><a href="latest_cv.pdf" target="_blank">Check out my CV</a></span>
+            <a href="https://www.figma.com/proto/mBblfdyZm4KFYfpUO1vCVQ/Portfolio-Design--Community-?node-id=16-6&t=dWujFBPkvSJQ8mMM-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1" class="figma-button" id="figmaButton" target="_blank" rel="noopener noreferrer">Figma Portfolio Design</a>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -661,32 +596,12 @@
     </footer>
 
     <script>
-        // Figma Overlay
-        const figmaOverlay = document.getElementById('figma-overlay');
-        const figmaImage = document.getElementById('figma-image');
-        const loadingIndicator = document.getElementById('loading-indicator');
+        // Theme switch
         const body = document.body;
-
-        // Show overlay only after image loads
-        figmaImage.onload = () => {
-            figmaOverlay.classList.add('loaded');
-            loadingIndicator.style.display = 'none';
-        };
-        figmaImage.onerror = () => {
-            loadingIndicator.textContent = 'Oops! Image failed to load 😿';
-        };
-
-        // Set initial theme to dark (hidden until overlay click)
-        body.setAttribute('data-theme', 'dark');
-
-        // Theme switch on overlay click
-        figmaOverlay.addEventListener('click', () => {
-            body.setAttribute('data-theme', 'light'); // Set to light theme
-            setTimeout(() => {
-                body.setAttribute('data-theme', 'dark'); // Switch to dark theme after 13 seconds
-            }, 13000); // 13 seconds in milliseconds
-            figmaOverlay.classList.add('hidden'); // Hide overlay after click
-        });
+        body.setAttribute('data-theme', 'light'); // Start with light theme
+        setTimeout(() => {
+            body.setAttribute('data-theme', 'dark'); // Switch to dark theme after 13 seconds
+        }, 13000); // 13 seconds in milliseconds
 
         // Particle Background
         const particleContainer = document.getElementById('particle-container');
