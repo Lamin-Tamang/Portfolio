@@ -6,6 +6,8 @@
     <title>Portfolio - Lamin Tamang</title>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Preload the Figma overlay image -->
+    <link rel="preload" href="mypicc.png" as="image">
     <style>
         :root {
             /* Dark Theme */
@@ -72,6 +74,10 @@
             cursor: pointer;
             overflow-y: auto;
             background: transparent;
+            opacity: 0; /* Initially hidden */
+        }
+        .figma-overlay.loaded {
+            opacity: 1; /* Show when image is loaded */
         }
         .figma-overlay img {
             width: 100vw;
@@ -99,6 +105,20 @@
         @keyframes pulseText {
             0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
             50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+        .loading-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: var(--accent-primary);
+            animation: spin 1.5s linear infinite;
+            z-index: 1999;
+        }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* Particle Background */
@@ -539,8 +559,9 @@
 <body data-theme="dark">
     <!-- Figma Overlay -->
     <div class="figma-overlay" id="figma-overlay">
-        <img src="mypicc.png" alt="Figma Portfolio">
+        <img id="figma-image" src="mypicc.png" alt="Figma Portfolio">
         <div class="click-text">Click here to visit my website</div>
+        <div class="loading-indicator" id="loading-indicator">🌸</div>
     </div>
 
     <!-- Particle Container -->
@@ -643,6 +664,18 @@
     <script>
         // Figma Overlay
         const figmaOverlay = document.getElementById('figma-overlay');
+        const figmaImage = document.getElementById('figma-image');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        // Show overlay only after image loads
+        figmaImage.onload = () => {
+            figmaOverlay.classList.add('loaded');
+            loadingIndicator.style.display = 'none';
+        };
+        figmaImage.onerror = () => {
+            loadingIndicator.textContent = 'Oops! Image failed to load 😿';
+        };
+
         figmaOverlay.addEventListener('click', () => {
             figmaOverlay.classList.add('hidden');
         });
