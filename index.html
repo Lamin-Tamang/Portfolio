@@ -74,7 +74,6 @@
             cursor: pointer;
             overflow-y: auto;
             background: transparent;
-            opacity: 0; /* Initially hidden */
         }
         .figma-overlay.loaded {
             opacity: 1; /* Show when image is loaded */
@@ -119,6 +118,15 @@
         @keyframes spin {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .error-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #ff4444;
+            z-index: 1999;
         }
 
         /* Particle Background */
@@ -556,12 +564,13 @@
         }
     </style>
 </head>
-<body data-theme="light">
+<body>
     <!-- Figma Overlay -->
     <div class="figma-overlay" id="figma-overlay">
         <img id="figma-image" src="mypicc.png" alt="Figma Portfolio">
         <div class="click-text">Click here to visit my website</div>
         <div class="loading-indicator" id="loading-indicator">🌸</div>
+        <div class="error-message" id="error-message" style="display: none;">Image not found! 😿 Try again or check the file.</div>
     </div>
 
     <!-- Particle Container -->
@@ -666,6 +675,8 @@
         const figmaOverlay = document.getElementById('figma-overlay');
         const figmaImage = document.getElementById('figma-image');
         const loadingIndicator = document.getElementById('loading-indicator');
+        const errorMessage = document.getElementById('error-message');
+        const body = document.body;
 
         // Show overlay only after image loads
         figmaImage.onload = () => {
@@ -673,19 +684,18 @@
             loadingIndicator.style.display = 'none';
         };
         figmaImage.onerror = () => {
-            loadingIndicator.textContent = 'Oops! Image failed to load 😿';
+            loadingIndicator.style.display = 'none';
+            errorMessage.style.display = 'block';
         };
 
+        // Set light theme after Figma overlay is dismissed, then switch to dark after 15 seconds
         figmaOverlay.addEventListener('click', () => {
             figmaOverlay.classList.add('hidden');
+            body.setAttribute('data-theme', 'light'); // Start with light theme after dismissal
+            setTimeout(() => {
+                body.setAttribute('data-theme', 'dark'); // Switch to dark theme after 15 seconds
+            }, 15000);
         });
-
-        // Theme Toggle: Switch from light to dark after 15 seconds
-        const body = document.body;
-        function toggleTheme() {
-            body.setAttribute('data-theme', 'dark'); // Switch to dark theme
-        }
-        setTimeout(toggleTheme, 15000); // 15 seconds delay
 
         // Particle Background
         const particleContainer = document.getElementById('particle-container');
