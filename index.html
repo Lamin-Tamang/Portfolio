@@ -20,8 +20,6 @@
             --shadow-primary: rgba(0, 0, 0, 0.6);
             --shadow-accent: #2a4066;
             --border-primary: #2a4066;
-            --orbital-bg: linear-gradient(135deg, #4a2c4a, #2c1e3d);
-            --planet-gradient: linear-gradient(45deg, #ff69b4, #c8a2c8);
             --particle-color: #ff69b4;
         }
 
@@ -38,8 +36,6 @@
             --shadow-primary: rgba(0, 0, 0, 0.2);
             --shadow-accent: #4fc3f7;
             --border-primary: #4fc3f7;
-            --orbital-bg: linear-gradient(135deg, #e0f7fa, #fff59d);
-            --planet-gradient: linear-gradient(45deg, #ef6c00, #ff9800);
             --particle-color: #ffeb3b;
         }
 
@@ -67,19 +63,19 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: 100%;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             z-index: 2000;
             cursor: pointer;
             overflow-y: auto;
-            background: transparent; /* Removed black background */
+            background: transparent;
         }
         .figma-overlay img {
             width: 100vw;
             height: auto;
-            object-fit: contain; /* Ensures full image is visible */
+            object-fit: contain;
             display: block;
         }
         .figma-overlay.hidden {
@@ -126,71 +122,6 @@
             0% { transform: translateY(0); opacity: 0.6; }
             50% { opacity: 0.3; }
             100% { transform: translateY(-100vh) translateX(10px); opacity: 0.6; }
-        }
-
-        /* Background Orbit Effect */
-        .background-orbit {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -3;
-            pointer-events: none;
-        }
-        .background-orbit .orbit-path {
-            position: absolute;
-            border: 2px dashed var(--border-primary);
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: orbit 60s linear infinite;
-        }
-        .background-orbit .orbit-path:nth-child(1) {
-            width: 1300px;
-            height: 1300px;
-            top: -400px;
-            left: -400px;
-            animation-duration: 80s;
-        }
-        .background-orbit .orbit-path:nth-child(2) {
-            width: 1500px;
-            height: 1500px;
-            bottom: -500px;
-            right: -500px;
-            animation-duration: 90s;
-            animation-direction: reverse;
-        }
-        .background-orbit .orbit-path:nth-child(3) {
-            width: 1100px;
-            height: 1100px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-duration: 70s;
-        }
-        .background-orbit .planet {
-            width: 40px;
-            height: 40px;
-            background: var(--planet-gradient);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            box-shadow: 0 0 15px var(--shadow-accent);
-            animation: bouncePlanet 3s ease-in-out infinite, rotatePlanet 10s linear infinite;
-        }
-        @keyframes orbit {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes bouncePlanet {
-            0%, 100% { transform: translateY(-50%) scale(1); }
-            50% { transform: translateY(-50%) scale(1.3); }
-        }
-        @keyframes rotatePlanet {
-            from { transform: translateY(-50%) rotate(0deg); }
-            to { transform: translateY(-50%) rotate(360deg); }
         }
 
         /* Navbar */
@@ -290,44 +221,6 @@
         @keyframes sparkling {
             0%, 100% { opacity: 0; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.5); }
-        }
-
-        /* Hero Orbital Animation */
-        .orbital {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png'), var(--orbital-bg);
-            background-attachment: fixed;
-            z-index: -1;
-            opacity: 0.7;
-            animation: pulseBackground 10s infinite alternate;
-        }
-        .orbital .orbit {
-            position: absolute;
-            border: 2px dotted var(--border-primary);
-            border-radius: 50%;
-            animation: orbit 20s linear infinite;
-        }
-        .orbital .orbit:nth-child(1) { width: 400px; height: 400px; top: 25%; left: 40%; }
-        .orbital .orbit:nth-child(2) { width: 500px; height: 500px; top: 30%; left: 30%; animation-delay: -10s; }
-        .orbital .planet {
-            width: 30px;
-            height: 30px;
-            background: var(--planet-gradient);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 15px var(--shadow-accent);
-            animation: bouncePlanet 2s infinite;
-        }
-        @keyframes pulseBackground {
-            from { opacity: 0.7; }
-            to { opacity: 0.9; }
         }
 
         /* Sections */
@@ -542,12 +435,14 @@
             .click-text { font-size: 32px; }
             .figma-overlay img {
                 width: 100vw;
+                height: auto;
             }
         }
 
         @media (max-width: 767px) {
             .figma-overlay img {
                 width: 100vw;
+                height: auto;
             }
             .click-text { font-size: 20px; }
         }
@@ -563,13 +458,6 @@
     <!-- Particle Container -->
     <div class="particle-container" id="particle-container"></div>
 
-    <!-- Background Orbit -->
-    <div class="background-orbit">
-        <div class="orbit-path"><div class="planet"></div></div>
-        <div class="orbit-path"><div class="planet"></div></div>
-        <div class="orbit-path"><div class="planet"></div></div>
-    </div>
-
     <!-- Navbar -->
     <nav>
         <div class="logo">x</div>
@@ -583,10 +471,6 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="orbital">
-            <div class="orbit"><div class="planet"></div></div>
-            <div class="orbit"><div class="planet"></div></div>
-        </div>
         <img src="https://via.placeholder.com/150" alt="Profile" class="profile-img">
         <h1>Hey there! I'm Lamin Tamang ✩</h1>
         <p><em>@Judges_a_model_by_its_accuracy_curve...</em></p>
